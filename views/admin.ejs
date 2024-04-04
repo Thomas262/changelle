@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>   
+  </head>
+  <body>
+    <h1>Hola Admin</h1>
+
+    <br>
+    <a href="/add">Agregar Película</a></p>
+      
+    <ul>
+      <h2>Lista usuarios</h2>
+      <% users.forEach(user => { %>
+        <li>
+          <strong>Nombre:</strong> <%= user.name %><br>
+          <strong>Email:</strong> <%= user.email %><br>
+          <% if (user.rol === 2) { %>
+            <strong>Rol:</strong> Administrador<br>
+          <% } else if (user.rol === 1) { %>
+            <strong>Rol:</strong> Espectador<br>
+          <% } else { %>
+            <strong>Rol:</strong> <%= user.rol %><br>
+          <% } %>
+          <strong>Creado en:</strong> <%= user.created_at %><br>
+          <strong>Actualizado en:</strong> <%= user.updated_at %>
+        </li>
+      <% }); %>
+    </ul>
+
+    <ul>
+      <h2>Editar de Películas</h2>
+      <% movies.forEach(movie => { %>
+        <li>
+          <a href="/update/<%= movie.id %>"><%= movie.title %></a>
+        </li>
+      <% }); %>
+    </ul>
+  </body>
+</html>

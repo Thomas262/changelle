@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>   
+  </head>
+  <body>
+      <h1>LISTADO DE PELÍCULAS</h1>
+      <br>
+      <a  href="/add">Agregar Película</a></p>
+      <a href="/user/login">ingresar</a>
+      <a href="/user/register">registrate</a>
+      <br>
+      <br>
+      <ul>
+          <% for( let i = 0; i < movies.length; i++ ) { %>
+          <li>
+              <a href="/detail/<%= movies[i].id %>"><%= movies[i].title %></a>
+          </li>
+          <% } %>
+  
+      </ul>
+  </body>
+  
+</html>

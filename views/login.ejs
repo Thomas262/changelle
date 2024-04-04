@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingreso</title>
+</head>
+<body>
+    <h1>Iniciar Sesión</h1>
+    <form action="/usuarios/ingreso" method="POST"> <!-- El formulario se enviará a la ruta de inicio de sesión de usuarios -->
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Iniciar Sesión</button><br>
+
+        <a href="/usuarios/registro">sos nuevo?</a>
+    </form>
+</body>
+</html>

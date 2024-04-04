@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= movie.title %> </title>
+    
+</head>
+<body>
+   
+    <h1><%= movie.title %> </h1>    
+    <br>
+    <p>RATING: <%= movie.rating %> </p>
+    <p>AWARDS: <%= movie.awards %> </p>
+    <p>LENGTH: <%= movie.length + ' min'%> </p>
+    <br>
+    <% if (genre) { %>
+        <p>NAME: <%= genre.name %> </p>
+        <p>RANKING: <%= genre.ranking %> </p>
+    <% } else { %>
+        <p>No se encontró información sobre el género.</p>
+    <% } %>
+
+    <p>RELEASE DATE: <%= movie.release_date %> </p>
+
+    <% if (actor) { %>
+        <p>Actor: <%= actor.first_name %> <%= actor.last_name %></p>
+    <% } else { %>
+        <p>No se encontró información sobre el actor.</p>
+    <% } %>
+</body>
+</html>
