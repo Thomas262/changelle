@@ -1,23 +1,34 @@
 <!DOCTYPE html>
-<html>
-  <head>   
-  </head>
-  <body>
-      <h1>LISTADO DE PELÍCULAS</h1>
-      <br>
-      <a  href="/add">Agregar Película</a></p>
-      <a href="/user/login">ingresar</a>
-      <a href="/user/register">registrate</a>
-      <br>
-      <br>
-      <ul>
-          <% for( let i = 0; i < movies.length; i++ ) { %>
-          <li>
-              <a href="/detail/<%= movies[i].id %>"><%= movies[i].title %></a>
-          </li>
-          <% } %>
-  
-      </ul>
-  </body>
-  
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Películas</title>
+</head>
+<body>
+    <% if (user) { %>
+        <p>Bienvenido, <%= user.name %> (<%= user.email %>)</p>
+        <form action="/logout" method="POST">
+            <button type="submit">Cerrar sesión</button>
+        </form>
+    <% } else { %>
+        <p>
+            <a href="/user/login">Ingresar</a> |
+            <a href="/user/register">Registrarse</a>
+        </p>
+    <% } %>
+
+    <h1>Listado de Películas</h1>
+    <br>
+    <a href="/add">Agregar Película</a>
+    <br>
+    <br>
+    <ul>
+        <% for (let i = 0; i < movies.length; i++) { %>
+            <li>
+                <a href="/detail/<%= movies[i].id %>"><%= movies[i].title %></a>
+            </li>
+        <% } %>
+    </ul>
+</body>
 </html>

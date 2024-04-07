@@ -10,7 +10,7 @@ const controllers = {
     index: (req, res) => {
         db.Movie.findAll()
             .then(movies => {
-                res.render('index', { movies });
+                res.render('index', { movies, user: req.user }); // Añadiendo 'user' al objeto pasado a la vista
             })
             .catch(error => {
                 console.error('Error al buscar películas:', error);
@@ -24,16 +24,15 @@ const controllers = {
             const actor = await db.Actor.findOne({
                 where: { favorite_movie_id: req.params.id }
             });
-            res.render('moviesDetail.ejs', { movie, genre, actor });
+            res.render('moviesDetail.ejs', { movie, genre, actor, user: req.user }); // Añadiendo 'user' al objeto pasado a la vista
         } catch (error) {
             // Manejo de errores
             console.error(error);
             res.status(500).send('Error al obtener detalles de la película');
         }
-
     },
     add: (req, res) => {
-        res.render("moviesAdd")
+        res.render("moviesAdd", { user: req.user }); // Añadiendo 'user' al objeto pasado a la vista
     },
     update: async (req, res) => {
         try {
@@ -49,14 +48,23 @@ const controllers = {
             const updatedMovie = await db.Movie.findByPk(movieId);
 
             // Renderizar el formulario de edición con los datos actualizados de la película
-            res.render('moviesEdit.ejs', { Movie: updatedMovie });
+            res.render('moviesEdit.ejs', { Movie: updatedMovie, user: req.user }); // Añadiendo 'user' al objeto pasado a la vista
         } catch (error) {
             // Manejo de errores
             console.error(error);
             res.status(500).send('Error al actualizar la película');
         }
+    },
+    clean: (req, res) => {
+        db.Movie.findByPk(req.params.id) // Buscar la película por su ID
+            .then(movie => {
+                res.render('moviesDelete', { movie, user: req.user }); // Añadiendo 'user' al objeto pasado a la vista
+            })
+            .catch(error => {
+                console.error('Error al buscar la película:', error);
+                res.status(500).send('Error interno del servidor');
+            });
     }
-};
-
+}
 
 module.exports = controllers;

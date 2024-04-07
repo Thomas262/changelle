@@ -1,0 +1,29 @@
+/node_modules
+
+# Directorio temporal
+/.tmp
+
+# Archivos de registro y archivos generados automáticamente
+*.log
+*.csv
+*.dat
+
+# Cualquier archivo de configuración local
+.env
+
+# Archivos generados por IDEs o editores de texto
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos de compilación y dependencias de construcción
+/build
+/dist
+
+# Archivos de respaldo
+*~
+
+# Archivos de credenciales
+*.key
+*.pem
