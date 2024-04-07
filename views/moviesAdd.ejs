@@ -5,33 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie add</title>
-  
 </head>
 
 <body>
-    
     <h1 class="titulo">Agregar Película</h1>
     <br>
     <section class="formulario">
-        <form action="/movies/create" method="POST">
-            <label for="title">Title </label>
+        <form action="/add" method="POST">
+            <label for="title">Título:</label>
             <p><input type="text" name="title" id="" required></p>
-            <label for="rating">Rating </label>
+            <label for="rating">Rating:</label>
             <p><input type="number" name="rating" id="" required> </p>
-            <label for="awards">Awards </label>
+            <label for="awards">Premios:</label>
             <p><input type="number" name="awards" id="" required></p>
-            <label for="release_date">Release date </label>
+            <label for="release_date">Fecha de lanzamiento:</label>
             <p><input type="date" name="release_date" id="" required></p>
-            <label for="length">Length </label>
+            <label for="length">Duración:</label>
             <p><input type="number" name="length" id="" required></p>
 
             <br>
-            <p> <button class="botonAgregar" type="submit">Agregar</button>
-            
-            <a  class="botonVolver" href="/movies">Listado de Películas</a></p>
+            <p><button class="botonAgregar" type="submit">Agregar</button>
+            <a class="botonVolver" href="/">Listado de Películas</a></p>
         </form>
     </section>
-    
 </body>
 
 </html>

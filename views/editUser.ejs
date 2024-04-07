@@ -9,7 +9,7 @@
 
 <body>
     <h2>Editar Usuario</h2>
-    <form action="/usuarios/<%= user.id %>" method="POST">
+    <form action="/user/<%= user.id %>" method="POST">
         <input type="hidden" name="_method" value="PUT"> <!-- Usamos un input oculto para indicar que es una solicitud PUT -->
         <label for="name">Nombre:</label>
         <input type="text" id="name" name="name" value="<%= user.name %>"><br>

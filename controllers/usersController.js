@@ -68,7 +68,7 @@ const controllers = {
             res.status(500).send('Error interno del servidor');
         }
     },
-    edit: async (req, res) => {
+    renderedit: async (req, res) => {
         try {
             const userId = req.params.id; // Obtener el ID del usuario de la solicitud
             const user = await db.User.findByPk(userId); // Buscar el usuario por su ID
@@ -84,6 +84,34 @@ const controllers = {
             res.status(500).send('Error interno del servidor');
         }
     },
+    update: async (req, res) => {
+        try {
+            const userId = req.params.id; // Obtener el ID del usuario de la solicitud
+            const { name, email, role } = req.body; // Extraer los datos del cuerpo de la solicitud
+
+            // Buscar y actualizar al usuario en la base de datos
+            const updatedUser = await db.User.update(
+                {
+                    name: name,
+                    email: email,
+                    rol: role
+                },
+                {
+                    where: { id: userId }
+                }
+            );
+
+            // Verificar si se actualizó correctamente
+            if (updatedUser[0] === 1) {
+                res.redirect('/user/list'); // Redirigir al usuario a la lista de usuarios
+            } else {
+                res.status(404).send('Usuario no encontrado');
+            }
+        } catch (error) {
+            console.error('Error al actualizar usuario:', error);
+            res.status(500).send('Error interno del servidor');
+        }
+    },
     espec: (req, res) => {
         const user = req.user; // Obtener el usuario autenticado de req.user
     
@@ -94,6 +122,30 @@ const controllers = {
             // Si el usuario no está autenticado, renderizar la vista con user como null o enviar un mensaje de error
             res.status(401).send('Usuario no autenticado');
             // Opción alternativa: res.render('espec', { user: null });
+        }
+    },
+
+    // Eliminar un usuario
+    delete: async (req, res) => {
+        try {
+            const userId = req.params.id; // Obtener el ID del usuario de la solicitud
+
+            // Buscar y eliminar al usuario
+            const deletedUser = await User.destroy({
+                where: {
+                    id: userId
+                }
+            });
+
+            // Verificar si se eliminó correctamente
+            if (deletedUser) {
+                res.send('Usuario eliminado exitosamente');
+            } else {
+                res.status(404).send('Usuario no encontrado');
+            }
+        } catch (error) {
+            console.error('Error al eliminar usuario:', error);
+            res.status(500).send('Error interno del servidor');
         }
     }
 };
