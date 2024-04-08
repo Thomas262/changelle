@@ -1,30 +1,30 @@
 const db = require('../database/models');
 const { edit } = require('./moviesController');
-
+const session = require('express-session');
 const sequelize = db.sequelize;
 
 // Otra forma de llamar a los modelos
 const Movies = db.Movie;
-/*const Movie = db.Movie;
-Movie.init({
-    // Definición de campos de Movie
-}, {
-    sequelize,
-    modelName: 'Movie',
-    paranoid: true // Habilitar eliminación lógica
-});*/
 
 
 const controllers = {
-    index: (req, res) => {
-        db.Movie.findAll()
-            .then(movies => {
-                res.render('index', { movies, user: req.user }); // Añadiendo 'user' al objeto pasado a la vista
-            })
-            .catch(error => {
-                console.error('Error al buscar películas:', error);
-                res.status(500).send('Error interno del servidor');
-            });
+    index:async (req, res) => {
+        try {
+            // Obtener la lista de películas de la base de datos
+            const movies = await db.Movie.findAll();
+            
+            // Verificar si el usuario está autenticado
+            if (req.session.user) {
+                // Si el usuario está autenticado, renderizar la vista de películas con los datos del usuario
+                res.render('index', { movies, user: req.session.user });
+            } else {
+                // Si el usuario no está autenticado, renderizar la vista de películas sin datos de usuario
+                res.render('index', { movies, user: null });
+            }
+        } catch (error) {
+            console.error('Error al buscar películas:', error);
+            res.status(500).send('Error interno del servidor');
+        }
     },
     detail: async (req, res) => {
         try {

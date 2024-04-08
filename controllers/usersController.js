@@ -1,8 +1,7 @@
 const { render } = require('ejs');
 const db = require('../database/models');
-
+const session = require('express-session');
 const sequelize = db.sequelize;
-
 const User = db.User;
 
 const controllers = { 
@@ -43,10 +42,38 @@ const controllers = {
         }
     },
 
-    login: (req, res) => {
+    log: (req, res) => {
         //if no name or password was    
         res.render("login");
+
     },
+    login: async (req, res) => {
+        try {
+            const { email, password } = req.body;
+            const user = await User.findOne({ where: { email: email } });
+
+            if (user && user.password === password) {
+                req.session.user = user; // Almacenar el usuario en la sesión
+                res.redirect('/user/espec');
+            } else {
+                res.redirect('/');
+            }
+        } catch (error) {
+            console.error('Error al iniciar sesión:', error);
+            res.status(500).send('Error interno del servidor');
+        }
+    },
+    logout :(req, res) => {
+        req.session.destroy(err => {
+            if (err) {
+                console.error('Error al cerrar sesión:', err);
+                res.status(500).send('Error interno del servidor');
+            } else {
+                res.redirect('/user/espec'); // Redirigir al usuario a la página de inicio de sesión después del cierre de sesión
+            }
+        });
+    },
+
     admin: async (req, res) => {
         try {
             const movies = await db.Movie.findAll();
@@ -113,18 +140,18 @@ const controllers = {
         }
     },
     espec: (req, res) => {
-        const user = req.user; // Obtener el usuario autenticado de req.user
-    
+        // Obtener el usuario de la sesión
+        const user = req.session.user;
+
+        // Verificar si el usuario está autenticado
         if (user) {
-            // Si el usuario está autenticado, renderizar la vista con la información del usuario
+            // Renderizar la vista de perfil del usuario con los datos del usuario
             res.render('espec', { user });
         } else {
-            // Si el usuario no está autenticado, renderizar la vista con user como null o enviar un mensaje de error
-            res.status(401).send('Usuario no autenticado');
-            // Opción alternativa: res.render('espec', { user: null });
+            // Si el usuario no está autenticado, redirigir a la página de inicio de sesión
+            res.redirect('/');
         }
     },
-
     // Eliminar un usuario
     delete: async (req, res) => {
         try {
