@@ -1,0 +1,19 @@
+<!-- logout.ejs -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+</head>
+<body>
+    <h2>¿Seguro que deseas cerrar sesión?</h2>
+    <% if (!user) { %>
+        <p>Error: Debes iniciar sesión para cerrar sesión.</p>
+    <% } else { %>
+        <form action="/logout" method="GET">
+            <button type="submit">Cerrar sesión</button>
+        </form>
+    <% } %>
+</body>
+</html>
