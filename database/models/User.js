@@ -18,19 +18,15 @@ module.exports = (sequelize, DataTypes) => {
         remember_token: {
             type: DataTypes.STRING
         },
-        created_at: {
-            type: DataTypes.DATE
-        },
-        updated_at: {
-            type: DataTypes.DATE
-        },
         rol: {
             type: DataTypes.TINYINT
         }
     };
     let config = {
         tableName: 'users',
-        timestamps: false 
+        timestamps: true, // Habilita el seguimiento de fechas de creación y actualización
+        createdAt: 'created_at', // Define el nombre del campo de fecha de creación
+        updatedAt: 'updated_at' // Define el nombre del campo de fecha de actualización
     };
     const User = sequelize.define(alias, cols, config);
 

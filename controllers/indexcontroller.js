@@ -1,5 +1,4 @@
 const db = require('../database/models');
-const { edit } = require('./moviesController');
 const session = require('express-session');
 const sequelize = db.sequelize;
 
@@ -53,7 +52,7 @@ const controllers = {
                 awards: awards,
                 release_date: release_date,
                 length: length,
-                genre_id: genre_id // Agrega genre_id al crear la película
+                genre_id: genre_id// Agrega genre_id al crear la película
             });
     
             console.log('Película creada:', newMovie);
