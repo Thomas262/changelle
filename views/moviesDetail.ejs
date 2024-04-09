@@ -4,29 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= movie.title %> </title>
-    
 </head>
 <body>
-   
     <h1><%= movie.title %> </h1>    
     <br>
-    <p>RATING: <%= movie.rating %> </p>
-    <p>AWARDS: <%= movie.awards %> </p>
-    <p>LENGTH: <%= movie.length + ' min'%> </p>
+    <p>Rating: <%= movie.rating %> </p>
+    <p>Premios: <%= movie.awards %> </p>
+    <p>Duración: <%= movie.length + ' min'%> </p>
     <br>
     <% if (genre) { %>
-        <p>NAME: <%= genre.name %> </p>
+        <p>Género: <%= genre.name %> </p>
         <p>RANKING: <%= genre.ranking %> </p>
     <% } else { %>
         <p>No se encontró información sobre el género.</p>
     <% } %>
 
-    <p>RELEASE DATE: <%= movie.release_date %> </p>
+    <p>Fecha de lanzamiento: <%= movie.release_date %> </p>
 
-    <% if (actor) { %>
-        <p>Actor: <%= actor.first_name %> <%= actor.last_name %></p>
+    <% if (actors && actors.length > 0) { %>
+        <p>Actores:</p>
+        <ul>
+            <% actors.forEach(actor => { %>
+                <li><%= actor.first_name %> <%= actor.last_name %></li>
+            <% }); %>
+        </ul>
     <% } else { %>
-        <p>No se encontró información sobre el actor.</p>
+        <p>No se encontró información sobre los actores.</p>
     <% } %>
 </body>
 </html>

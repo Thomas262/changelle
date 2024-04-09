@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var indexController = require("../controllers/indexController");
+var indexController = require('../controllers/indexcontroller');
 
 router.get('/', indexController.index);
 router.get('/detail/:id', indexController.detail);

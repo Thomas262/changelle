@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const usersController = require('../controllers/usersController');
 
-//middleware para comprobar perfil de usuario
+//middleware para verificar si el usuario admin está logeado
 const checkAdminRole = (req, res, next) => {
     const user = req.session.user;
     if (user && user.rol === 0) {
@@ -21,7 +21,7 @@ router.post('/user/login/enter', usersController.login);
 router.get('/user/logout', usersController.logout);
 router.get('/user/admin',checkAdminRole, usersController.admin );
 router.get('/user/espec', usersController.espec );
-router.get('/user/list' , usersController.list );
+router.get('/user/list' ,checkAdminRole, usersController.list );
 router.get('/user/:id/editar' , usersController.renderedit);
 router.post('/user/:id' , usersController.update)
 router.post('/user/delete/:id', usersController.delete);

@@ -22,6 +22,24 @@
             <label for="length">Duración:</label>
             <p><input type="number" name="length" id="length" value="<%= Movie.length %>" required></p>
             <br>
+            <p>
+                <select name="genre_id" id="" required>
+                    <option value="null" selected disabled>Seleccionar género</option>
+                    <option value="1">Comedia</option>
+                    <option value="2">Terror</option>
+                    <option value="3">Drama</option>
+                    <option value="4">Acción</option>
+                    <option value="5">Ciencia Ficción</option>
+                    <option value="6">Suspenso</option>
+                    <option value="7">Animación</option>
+                    <option value="8">Aventuras</option>
+                    <option value="9">Documental</option>
+                    <option value="10">Infantiles</option>
+                    <option value="11">Fantasía</option>
+                    <option value="12">Musical</option>
+                </select>
+            </p>
+            
             <p><button class="botonAgregar" type="submit">Actualizar</button>
             <a class="botonVolver" href="/user/admin">Listado de Películas</a></p>
         </form>
