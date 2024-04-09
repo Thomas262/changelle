@@ -13,19 +13,19 @@
     <section class="formulario">
         <form action="/add" method="POST">
             <label for="title">Título:</label>
-            <p><input type="text" name="title" id="" required></p>
+            <p><input type="text" name="title" required></p>
             <label for="rating">Rating:</label>
-            <p><input type="number" name="rating" id="" required> </p>
+            <p><input type="number" name="rating" required> </p>
             <label for="awards">Premios:</label>
-            <p><input type="number" name="awards" id="" required></p>
+            <p><input type="number" name="awards" required></p>
             <label for="release_date">Fecha de lanzamiento:</label>
-            <p><input type="date" name="release_date" id="" required></p>
+            <p><input type="date" name="release_date" required></p>
             <label for="length">Duración:</label>
-            <p><input type="number" name="length" id="" required></p>
+            <p><input type="number" name="length" required></p>
             <label for="genre_id">Género:</label>
             <p>
-                <select name="genre_id" id="" required>
-                    <option value="null" selected disabled>Seleccionar género</option>
+                <select name="genre_id" required>
+                    <option value="" disabled selected>Seleccionar género</option>
                     <option value="1">Comedia</option>
                     <option value="2">Terror</option>
                     <option value="3">Drama</option>
@@ -41,8 +41,9 @@
                 </select>
             </p>
             
-            <label for="actor">Nombre del actor:</label>
-            <p><input type="text" name="actor" id="actor" required></p>
+            <label for="actors">Nombres de los actores:</label>
+            <p><input type="text" name="actors[]" required></p>
+            <p><input type="text" name="actors[]" ></p> <!-- Agrega más campos si es necesario -->
 
             <br>
             <p><button class="botonAgregar" type="submit">Agregar</button>

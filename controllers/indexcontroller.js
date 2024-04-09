@@ -3,6 +3,7 @@ const session = require('express-session');
 const sequelize = db.sequelize;
 
 const Movies = db.Movie;
+const ActorMovie = db.ActorMovie;
 
 const controllers = {
     index: async (req, res) => {
@@ -25,25 +26,35 @@ const controllers = {
     },
     detail: async (req, res) => {
         try {
-            const movie = await db.Movie.findByPk(req.params.id);
-            const genre = await db.Genre.findByPk(req.params.id);
-            const actors = await db.Actor.findAll({ // Cambiar "actor" a "actors"
+            const movie = await db.Movie.findByPk(req.params.id, {
+                include: db.Genre // Incluye la información del género asociado a la película
+            });
+    
+            const actors = await db.Actor.findAll({
                 where: { favorite_movie_id: req.params.id }
             });
-            res.render('moviesDetail.ejs', { movie, genre, actors, user: req.user }); // Cambiar "actor" a "actors"
+    
+            if (!movie) {
+                return res.status(404).send('Película no encontrada');
+            }
+    
+            res.render('moviesDetail.ejs', { movie, actors, user: req.user });
         } catch (error) {
             console.error(error);
             res.status(500).send('Error al obtener detalles de la película');
         }
     },
     
+    
+    
     add: (req, res) => {
         res.render("moviesAdd", { user: req.user }); 
     },
-    create: async (req, res) => {
+    create : async (req, res) => {
         try {
-            const { title, rating, awards, release_date, length, genre_id } = req.body;
-
+            const { title, rating, awards, release_date, length, genre_id, actorIds } = req.body;
+    
+            // Crea la película en la tabla movies
             const newMovie = await Movies.create({
                 title: title,
                 rating: rating,
@@ -52,9 +63,20 @@ const controllers = {
                 length: length,
                 genre_id: genre_id
             });
-
+    
+            // Verifica si se proporcionaron IDs de actores y los agrega a la película
+            if (actorIds && actorIds.length > 0) {
+                // Crea un nuevo registro en la tabla actor_movie para cada actor seleccionado
+                await Promise.all(actorIds.map(async (actorId) => {
+                    await ActorMovie.create({
+                        actor_id: actorId,
+                        movie_id: newMovie.id // Utiliza el ID de la nueva película creada
+                    });
+                }));
+            }
+    
             console.log('Película creada:', newMovie);
-
+    
             res.send('¡Película creada exitosamente!');
         } catch (error) {
             console.error('Error al crear película:', error);

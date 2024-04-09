@@ -1,35 +1,24 @@
-module.exports = (sequelize, dataTypes) => {
-    let alias = 'Movie';
-    let cols = {
+module.exports = (sequelize, DataTypes) => {
+    const Movie = sequelize.define('Movie', {
         id: {
-            type: dataTypes.INTEGER,
+            type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        title: {
-            type: dataTypes.STRING
-        },
-        rating: {
-            type: dataTypes.INTEGER
-        },
-        length: {
-            type: dataTypes.INTEGER
-        },
-        awards: {
-            type: dataTypes.INTEGER
-        },
-        release_date: {
-            type: dataTypes.DATE
-        },
-        genre_id: { // Aquí agregamos el campo genre_id
-            type: dataTypes.INTEGER
-        }
-    };
-    let config = {
+        title: DataTypes.STRING,
+        rating: DataTypes.INTEGER,
+        length: DataTypes.INTEGER,
+        awards: DataTypes.INTEGER,
+        release_date: DataTypes.DATE,
+        genre_id: DataTypes.INTEGER // Agregamos el campo genre_id
+    }, {
         tableName: 'movies',
         timestamps: false
-    };
-    const Movie = sequelize.define(alias, cols, config)
+    });
 
-    return Movie
-}
+    Movie.associate = (models) => {
+        Movie.belongsTo(models.Genre, { foreignKey: 'genre_id' }); // Definimos la relación con el modelo Genre
+    };
+
+    return Movie;
+};

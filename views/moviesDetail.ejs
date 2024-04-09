@@ -12,13 +12,13 @@
     <p>Premios: <%= movie.awards %> </p>
     <p>Duración: <%= movie.length + ' min'%> </p>
     <br>
-    <% if (genre) { %>
-        <p>Género: <%= genre.name %> </p>
-        <p>RANKING: <%= genre.ranking %> </p>
+    <% if (movie.Genre) { %>
+        <p>Género: <%= movie.Genre.name %> </p>
+        <p>RANKING: <%= movie.Genre.ranking %> </p>
     <% } else { %>
         <p>No se encontró información sobre el género.</p>
     <% } %>
-
+    
     <p>Fecha de lanzamiento: <%= movie.release_date %> </p>
 
     <% if (actors && actors.length > 0) { %>
