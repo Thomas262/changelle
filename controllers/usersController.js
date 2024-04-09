@@ -76,10 +76,18 @@ const controllers = {
 
     admin: async (req, res) => {
         try {
-            const movies = await db.Movie.findAll();
-            const users = await db.User.findAll();
-            
-            res.render('admin', { movies, users });
+            const user = req.session.user; // Obtener el usuario de la sesión
+            const movies = await db.Movie.findAll(); // Obtener todas las películas
+            const users = await db.User.findAll(); // Obtener todos los usuarios
+
+            // Verificar si el usuario está autenticado
+            if (user) {
+                // Renderizar la vista de administrador con los datos del usuario y las películas
+                res.render('admin', { user, movies, users });
+            } else {
+                // Si el usuario no está autenticado, redirigir a la página de inicio de sesión
+                res.redirect('/');
+            }
         } catch (error) {
             console.error('Error al buscar películas y usuarios:', error);
             res.status(500).send('Error interno del servidor');

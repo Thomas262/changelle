@@ -6,7 +6,6 @@ const sequelize = db.sequelize;
 // Otra forma de llamar a los modelos
 const Movies = db.Movie;
 
-
 const controllers = {
     index:async (req, res) => {
         try {
@@ -45,25 +44,27 @@ const controllers = {
     },
     create: async (req, res) => {
         try {
-            const { title, rating, awards, release_date, length } = req.body;
-
+            const { title, rating, awards, release_date, length, genre_id } = req.body;
+    
             // Crear una nueva película en la base de datos
             const newMovie = await Movies.create({
                 title: title,
                 rating: rating,
                 awards: awards,
                 release_date: release_date,
-                length: length
+                length: length,
+                genre_id: genre_id // Agrega genre_id al crear la película
             });
-
+    
             console.log('Película creada:', newMovie);
-
+    
             res.send('¡Película creada exitosamente!');
         } catch (error) {
             console.error('Error al crear película:', error);
             res.status(500).send('Error interno del servidor');
         }
     },
+    
 
     renderupdate: async (req, res) => {
         try {

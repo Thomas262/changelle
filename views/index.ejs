@@ -9,6 +9,13 @@
     <% if (user) { %>
         <p>Bienvenido, <%= user.name %> (<%= user.email %>)</p>
         <a href="/user/logout">Cerrar sesión</a>
+        <% if (user.rol === 0) { %>
+            <p>Rol: Usuario Espectador</p>
+        <% } else if (user.rol === 1) { %>
+            <p>Rol: Administrador
+                <a href="/user/admin">propiedades</a>
+            </p>
+        <% } %>
             
         </form>
     <% } else { %>

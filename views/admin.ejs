@@ -3,12 +3,21 @@
   <head>   
   </head>
   <body>
-    <h1>Hola Admin</h1>
+    <h1>Bienvenido, <%= user.name %></h1>
+    <p>Correo electrónico: <%= user.email %></p>
+
+    <% if (user.rol === 0) { %>
+        <p>Rol: Usuario Espectador</p>
+    <% } else if (user.rol === 1) { %>
+        <p>Rol: Administrador</p>
+    <% } %>
+    <a href="/user/logout">Cerrar sesión</a>
 
     <br>
     <a href="/add">Agregar Película</a></p>
       
     <a href="/user/list">ver lista de usuarios</a>
+    <a href="/">ver pelis</a>
 
     <ul>
       <h2>Editar de Películas</h2>
