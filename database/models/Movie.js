@@ -10,15 +10,16 @@ module.exports = (sequelize, DataTypes) => {
         length: DataTypes.INTEGER,
         awards: DataTypes.INTEGER,
         release_date: DataTypes.DATE,
-        genre_id: DataTypes.INTEGER // Agregamos el campo genre_id
+        genre_id: DataTypes.INTEGER 
     }, {
         tableName: 'movies',
         timestamps: false
     });
 
     Movie.associate = (models) => {
-        Movie.belongsTo(models.Genre, { foreignKey: 'genre_id' }); // Definimos la relación con el modelo Genre
+        Movie.belongsTo(models.Genre, { foreignKey: 'genre_Id' }); 
     };
+    
 
     return Movie;
 };

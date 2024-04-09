@@ -50,11 +50,10 @@ const controllers = {
     add: (req, res) => {
         res.render("moviesAdd", { user: req.user }); 
     },
-    create : async (req, res) => {
+    create: async (req, res) => {
         try {
-            const { title, rating, awards, release_date, length, genre_id, actorIds } = req.body;
+            const { title, rating, awards, release_date, length, genre_id, actors } = req.body;
     
-            // Crea la película en la tabla movies
             const newMovie = await Movies.create({
                 title: title,
                 rating: rating,
@@ -63,14 +62,20 @@ const controllers = {
                 length: length,
                 genre_id: genre_id
             });
+
+
+            if (actors && actors.length > 0) {
+                await Promise.all(actors.map(async (actorName) => {
+                    const [firstName, lastName] = actorName.split(' ');
     
-            // Verifica si se proporcionaron IDs de actores y los agrega a la película
-            if (actorIds && actorIds.length > 0) {
-                // Crea un nuevo registro en la tabla actor_movie para cada actor seleccionado
-                await Promise.all(actorIds.map(async (actorId) => {
+                    const newActor = await Actor.create({
+                        first_name: firstName,
+                        last_name: lastName
+                    });
+    
                     await ActorMovie.create({
-                        actor_id: actorId,
-                        movie_id: newMovie.id // Utiliza el ID de la nueva película creada
+                        actor_id: newActor.id,
+                        movie_id: newMovie.id
                     });
                 }));
             }
@@ -83,6 +88,8 @@ const controllers = {
             res.status(500).send('Error interno del servidor');
         }
     },
+    
+    
 
 
     renderupdate: async (req, res) => {

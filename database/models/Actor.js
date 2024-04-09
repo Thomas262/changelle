@@ -19,10 +19,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER
         },
         created_at: {
-            type: DataTypes.DATE // Corregir el tipo de datos
+            type: DataTypes.DATE 
         },
         updated_at: {
-            type: DataTypes.DATE // También puedes usar DataTypes.DATE para updated_at si es necesario
+            type: DataTypes.DATE 
         }
     };
     

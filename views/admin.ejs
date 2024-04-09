@@ -24,7 +24,6 @@
       <% movies.forEach(movie => { %>
         <li>
           <a href="/update/<%= movie.id %>"><%= movie.title %></a>
-          <!-- Botón para redirigir a la página de borrado de la película -->
           <a href="/delete/<%= movie.id %>"><button>Borrar Película</button></a>
         </li>
       <% }); %>

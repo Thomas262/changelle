@@ -14,13 +14,11 @@
       <strong>Creado en:</strong> <%= user.created_at %><br>
       <strong>Actualizado en:</strong> <%= user.updated_at %>
       
-      <!-- Botón de eliminar -->
       <form action="/user/delete/<%= user.id %>" method="POST">
         <input type="hidden" name="_method" value="DELETE">
         <button type="submit">Eliminar</button>
       </form>
       
-      <!-- Botón de editar -->
       <form action="/user/<%= user.id %>/editar" method="GET">
         <button type="submit">Editar</button>
       </form>

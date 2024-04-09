@@ -24,9 +24,9 @@ module.exports = (sequelize, DataTypes) => {
     };
     let config = {
         tableName: 'users',
-        timestamps: true, // Habilita el seguimiento de fechas de creación y actualización
-        createdAt: 'created_at', // Define el nombre del campo de fecha de creación
-        updatedAt: 'updated_at' // Define el nombre del campo de fecha de actualización
+        timestamps: true, 
+        createdAt: 'created_at', 
+        updatedAt: 'updated_at' 
     };
     const User = sequelize.define(alias, cols, config);
 
